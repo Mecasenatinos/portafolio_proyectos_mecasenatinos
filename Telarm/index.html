@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telarm - Aislante Térmico Ecológico | Mecasenatinos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ff6b35;
+            text-shadow: 0 0 10px #ff6b35;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23ffffff05" points="0,300 1000,600 1000,1000 0,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff; }
+            to { text-shadow: 0 0 30px #ffffff, 0 0 40px #ffffff; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Process Grid */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .process-step {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .process-step:hover {
+            transform: translateY(-10px);
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .step-number {
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-description {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .benefit-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #ff6b35;
+            transition: all 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .gallery-item {
+            background: #f0f0f0;
+            height: 200px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #ff6b35;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">TELARM</div>
+            <a href="../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver al Portafolio
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>TELARM</h1>
+            <p class="hero-subtitle">Aislante Térmico Ecológico</p>
+            <p class="hero-description">
+                Transformando residuos textiles en soluciones térmicas innovadoras para un futuro sostenible
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Overview Section -->
+        <section class="section fade-in">
+            <h2>Visión General del Proyecto</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                Telarm es un proyecto innovador que combina sostenibilidad ambiental con ingeniería de materiales. 
+                Desarrollamos aislantes térmicos de alta eficiencia utilizando residuos textiles como materia prima, 
+                creando una solución que reduce desechos y proporciona materiales de construcción eco-amigables.
+            </p>
+
+            <div class="stats">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">85%</div>
+                    <div>Reducción de Residuos</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">40%</div>
+                    <div>Mejor Aislamiento</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">60%</div>
+                    <div>Menor Costo</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">100%</div>
+                    <div>Eco-Friendly</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="section fade-in">
+            <h2>Proceso de Desarrollo</h2>
+            <div class="process-grid">
+                <div class="process-step fade-in">
+                    <div class="step-number">01</div>
+                    <div class="step-icon"><i class="fas fa-recycle"></i></div>
+                    <div class="step-title">Recolección</div>
+                    <div class="step-description">
+                        Recopilación selectiva de residuos textiles de diferentes fuentes industriales y domésticas.
+                    </div>
+                </div>
+
+                <div class="process-step fade-in">
+                    <div class="step-number">02</div>
+                    <div class="step-icon"><i class="fas fa-cut"></i></div>
+                    <div class="step-title">Procesamiento</div>
+                    <div class="step-description">
+                        Clasificación, limpieza y triturado de los materiales textiles para obtener fibras uniformes.
+                    </div>
+                </div>
+
+                <div class="process-step fade-in">
+                    <div class="step-number">03</div>
+                    <div class="step-icon"><i class="fas fa-flask"></i></div>
+                    <div class="step-title">Tratamiento</div>
+                    <div class="step-description">
+                        Aplicación de tratamientos químicos eco-amigables para mejorar propiedades térmicas.
+                    </div>
+                </div>
+
+                <div class="process-step fade-in">
+                    <div class="step-number">04</div>
+                    <div class="step-icon"><i class="fas fa-compress"></i></div>
+                    <div class="step-title">Compactación</div>
+                    <div class="step-description">
+                        Prensado y moldeado de las fibras tratadas en paneles de aislamiento de diferentes densidades.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="section fade-in">
+            <h2>Beneficios y Ventajas</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-leaf"></i></div>
+                    <div class="benefit-title">Sostenibilidad Ambiental</div>
+                    <p>Reduce significativamente los residuos textiles destinados a vertederos, 
+                    contribuyendo a la economía circular y la protección del medio ambiente.</p>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-thermometer-half"></i></div>
+                    <div class="benefit-title">Excelente Aislamiento</div>
+                    <p>Propiedades térmicas superiores comparadas con materiales tradicionales, 
+                    ofreciendo mejor eficiencia energética en edificaciones.</p>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="benefit-title">Costo Efectivo</div>
+                    <p>Producción más económica al utilizar materiales de desecho, 
+                    resultando en precios competitivos para el consumidor final.</p>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-fire-extinguisher"></i></div>
+                    <div class="benefit-title">Resistencia al Fuego</div>
+                    <p>Tratamientos ignífugos naturales que mejoran la seguridad 
+                    sin comprometer las propiedades ecológicas del material.</p>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="benefit-title">Durabilidad</div>
+                    <p>Materiales resistentes al deterioro y plagas, 
+                    garantizando una vida útil prolongada del aislamiento.</p>
+                </div>
+
+                <div class="benefit-card fade-in">
+                    <div class="benefit-icon"><i class="fas fa-tools"></i></div>
+                    <div class="benefit-title">Fácil Instalación</div>
+                    <p>Diseño adaptable para diferentes tipos de construcción, 
+                    con instalación sencilla y versátil.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="section fade-in">
+            <h2>Galería del Proceso</h2>
+            <div class="gallery">
+                <div class="gallery-item fade-in">
+                    <i class="fas fa-tshirt"></i>
+                </div>
+                <div class="gallery-item fade-in">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <div class="gallery-item fade-in">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="gallery-item fade-in">
+                    <i class="fas fa-home"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specs -->
+        <section class="section fade-in">
+            <h2>Especificaciones Técnicas</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #ff6b35; margin-bottom: 1rem;">
+                        <i class="fas fa-thermometer-half"></i> Propiedades Térmicas
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Conductividad térmica: 0.035-0.040 W/mK</li>
+                        <li>Resistencia térmica: R-5.7 a R-6.5</li>
+                        <li>Rango de temperatura: -40°C a +80°C</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #ff6b35; margin-bottom: 1rem;">
+                        <i class="fas fa-weight"></i> Propiedades Físicas
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Densidad: 40-80 kg/m³</li>
+                        <li>Espesor disponible: 25-200 mm</li>
+                        <li>Compresión: 10-15% deformación</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #ff6b35; margin-bottom: 1rem;">
+                        <i class="fas fa-certificate"></i> Certificaciones
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>ISO 14001 (Gestión Ambiental)</li>
+                        <li>GREENGUARD Gold</li>
+                        <li>Cradle to Cradle Certified</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="section fade-in">
+            <h2>Equipo del Proyecto</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div style="text-align: center; background: #f8f9fa; padding: 2rem; border-radius: 15px;">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #ff6b35, #f7931e); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Luis Gómez</h4>
+                    <p>Ingeniero de Materiales</p>
+                </div>
+                <div style="text-align: center; background: #f8f9fa; padding: 2rem; border-radius: 15px;">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #ff6b35, #f7931e); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Alondra Suárez</h4>
+                    <p>Especialista en Sostenibilidad</p>
+                </div>
+                <div style="text-align: center; background: #f8f9fa; padding: 2rem; border-radius: 15px;">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #ff6b35, #f7931e); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h4>Diego Medina</h4>
+                    <p>Ingeniero de Procesos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section fade-in">
+            <h2>Más Información</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    ¿Interesado en conocer más sobre Telarm? ¡Contáctanos para colaboraciones o información adicional!
+                </p>
+                <a href="../index.html#contacto" style="display: inline-block; background: linear-gradient(45deg, #ff6b35, #f7931e); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: bold;">
+                    Contactar Equipo
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mecasenatinos - Proyecto Telarm. Construyendo un futuro sostenible.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = Math.ceil(current) + '%';
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>

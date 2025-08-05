@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Triaje - Robot Médico | Mecasenatinos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #e74c3c;
+            text-shadow: 0 0 10px #e74c3c;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23ffffff05" points="0,300 1000,600 1000,1000 0,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff; }
+            to { text-shadow: 0 0 30px #ffffff, 0 0 40px #ffffff; }
+        }
+
+        .medical-animation {
+            font-size: 8rem;
+            margin: 2rem 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Triage Process */
+        .triage-process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .process-step {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .process-step:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Priority Levels */
+        .priority-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .priority-card {
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .priority-1 { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .priority-2 { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .priority-3 { background: linear-gradient(135deg, #f1c40f, #f39c12); }
+        .priority-4 { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .priority-5 { background: linear-gradient(135deg, #3498db, #2980b9); }
+
+        /* Capabilities */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .capability-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #e74c3c;
+            transition: all 0.3s;
+        }
+
+        .capability-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.2);
+        }
+
+        .capability-icon {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .medical-animation {
+                font-size: 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">ROBOT TRIAJE</div>
+            <a href="../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver al Portafolio
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ROBOT TRIAJE</h1>
+            <div class="medical-animation">🏥🤖</div>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Sistema robótico médico para clasificación y asistencia en emergencias sanitarias
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Overview Section -->
+        <section class="section fade-in">
+            <h2>Visión General</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                El Robot Triaje es un sistema médico automatizado diseñado para asistir en la clasificación 
+                rápida y precisa de pacientes en situaciones de emergencia. Combina sensores biomédicos, 
+                IA diagnóstica y protocolos médicos estandarizados para optimizar la atención sanitaria.
+            </p>
+
+            <div class="stats">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">30</div>
+                    <div>Segundos por Evaluación</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">95%</div>
+                    <div>Precisión Diagnóstica</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">24/7</div>
+                    <div>Operación Continua</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">200+</div>
+                    <div>Pacientes/Hora</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Triage Process -->
+        <section class="section fade-in">
+            <h2>Proceso de Triaje</h2>
+            <div class="triage-process">
+                <div class="process-step fade-in">
+                    <div class="step-number">01</div>
+                    <div class="step-icon"><i class="fas fa-user-check"></i></div>
+                    <h4>Registro</h4>
+                    <p>Identificación y registro automático del paciente mediante reconocimiento facial y códigos QR.</p>
+                </div>
+
+                <div class="process-step fade-in">
+                    <div class="step-number">02</div>
+                    <div class="step-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h4>Signos Vitales</h4>
+                    <p>Medición automática de temperatura, presión arterial, frecuencia cardíaca y saturación de oxígeno.</p>
+                </div>
+
+                <div class="process-step fade-in">
+                    <div class="step-number">03</div>
+                    <div class="step-icon"><i class="fas fa-brain"></i></div>
+                    <h4>Análisis IA</h4>
+                    <p>Evaluación inteligente de síntomas y signos vitales usando algoritmos de diagnóstico médico.</p>
+                </div>
+
+                <div class="process-step fade-in">
+                    <div class="step-number">04</div>
+                    <div class="step-icon"><i class="fas fa-sort-amount-up"></i></div>
+                    <h4>Clasificación</h4>
+                    <p>Asignación automática de prioridad según protocolos de triaje médico estandarizados.</p>
+                </div>
+
+                <div class="process-step fade-in">
+                    <div class="step-number">05</div>
+                    <div class="step-icon"><i class="fas fa-route"></i></div>
+                    <h4>Derivación</h4>
+                    <p>Dirección del paciente al área de atención apropiada según su nivel de prioridad.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Priority Levels -->
+        <section class="section fade-in">
+            <h2>Niveles de Prioridad</h2>
+            <div class="priority-grid">
+                <div class="priority-card priority-1 fade-in">
+                    <h3>ROJO</h3>
+                    <div style="font-size: 2rem; margin: 1rem 0;">🚨</div>
+                    <h4>Emergencia</h4>
+                    <p>Riesgo vital inmediato</p>
+                    <p><strong>Tiempo: &lt;15 min</strong></p>
+                </div>
+
+                <div class="priority-card priority-2 fade-in">
+                    <h3>NARANJA</h3>
+                    <div style="font-size: 2rem; margin: 1rem 0;">⚠️</div>
+                    <h4>Muy Urgente</h4>
+                    <p>Riesgo vital potencial</p>
+                    <p><strong>Tiempo: &lt;30 min</strong></p>
+                </div>
+
+                <div class="priority-card priority-3 fade-in">
+                    <h3>AMARILLO</h3>
+                    <div style="font-size: 2rem; margin: 1rem 0;">🟡</div>
+                    <h4>Urgente</h4>
+                    <p>Condición estable</p>
+                    <p><strong>Tiempo: &lt;60 min</strong></p>
+                </div>
+
+                <div class="priority-card priority-4 fade-in">
+                    <h3>VERDE</h3>
+                    <div style="font-size: 2rem; margin: 1rem 0;">🟢</div>
+                    <h4>Semi-urgente</h4>
+                    <p>Condición menor</p>
+                    <p><strong>Tiempo: &lt;120 min</strong></p>
+                </div>
+
+                <div class="priority-card priority-5 fade-in">
+                    <h3>AZUL</h3>
+                    <div style="font-size: 2rem; margin: 1rem 0;">🔵</div>
+                    <h4>No urgente</h4>
+                    <p>Condición crónica</p>
+                    <p><strong>Tiempo: &lt;240 min</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="section fade-in">
+            <h2>Capacidades del Sistema</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-stethoscope"></i></div>
+                    <h4>Monitoreo Biomédico</h4>
+                    <p>Sensores avanzados para medición no invasiva de signos vitales, incluyendo ECG, temperatura corporal y presión arterial.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-brain"></i></div>
+                    <h4>IA Diagnóstica</h4>
+                    <p>Algoritmos de machine learning entrenados con miles de casos médicos para diagnóstico preciso y rápido.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-database"></i></div>
+                    <h4>Historial Médico</h4>
+                    <p>Acceso instantáneo a historiales médicos electrónicos y bases de datos hospitalarias integradas.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-language"></i></div>
+                    <h4>Comunicación Multilingüe</h4>
+                    <p>Interfaz de voz en múltiples idiomas para comunicación efectiva con pacientes de diversas nacionalidades.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-shield-virus"></i></div>
+                    <h4>Detección de Patógenos</h4>
+                    <p>Sensores especializados para detección rápida de infecciones y enfermedades contagiosas.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-network-wired"></i></div>
+                    <h4>Integración Hospitalaria</h4>
+                    <p>Conectividad total con sistemas hospitalarios para actualización en tiempo real de estados de pacientes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specifications -->
+        <section class="section fade-in">
+            <h2>Especificaciones Técnicas</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #e74c3c; margin-bottom: 1rem;">
+                        <i class="fas fa-heartbeat"></i> Sensores Biomédicos
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Termómetro infrarrojo sin contacto</li>
+                        <li>Oxímetro de pulso</li>
+                        <li>Esfigmomanómetro automático</li>
+                        <li>ECG de 12 derivaciones</li>
+                        <li>Glucómetro no invasivo</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #e74c3c; margin-bottom: 1rem;">
+                        <i class="fas fa-microchip"></i> Sistema de Procesamiento
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>CPU: Intel Xeon E5-2620</li>
+                        <li>RAM: 32 GB DDR4</li>
+                        <li>GPU: NVIDIA Tesla T4</li>
+                        <li>Almacenamiento: 2 TB SSD</li>
+                        <li>OS: Ubuntu 20.04 Medical</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #e74c3c; margin-bottom: 1rem;">
+                        <i class="fas fa-shield-alt"></i> Seguridad y Cumplimiento
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Certificación FDA Clase II</li>
+                        <li>Cumplimiento HIPAA</li>
+                        <li>Encriptación AES-256</li>
+                        <li>Backup automático seguro</li>
+                        <li>Auditoría completa de accesos</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="section fade-in">
+            <h2>Casos de Uso</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #28a745;">
+                    <h4 style="color: #28a745; margin-bottom: 1rem;">
+                        <i class="fas fa-hospital"></i> Salas de Emergencia
+                    </h4>
+                    <p>Clasificación rápida en emergencias hospitalarias para optimizar recursos y reducir tiempos de espera.</p>
+                </div>
+
+                <div style="background: #e8f4fd; padding: 2rem; border-radius: 15px; border-left: 5px solid #007bff;">
+                    <h4 style="color: #007bff; margin-bottom: 1rem;">
+                        <i class="fas fa-ambulance"></i> Atención Pre-hospitalaria
+                    </h4>
+                    <p>Evaluación inicial en ambulancias y sitios de accidentes para determinar prioridades de transporte.</p>
+                </div>
+
+                <div style="background: #fff8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #ffc107;">
+                    <h4 style="color: #ffc107; margin-bottom: 1rem;">
+                        <i class="fas fa-building"></i> Centros de Salud
+                    </h4>
+                    <p>Automatización del triaje en centros de atención primaria y clínicas especializadas.</p>
+                </div>
+
+                <div style="background: #fde8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #dc3545;">
+                    <h4 style="color: #dc3545; margin-bottom: 1rem;">
+                        <i class="fas fa-globe"></i> Zonas de Desastre
+                    </h4>
+                    <p>Despliegue rápido en catástrofes naturales y emergencias masivas para triaje de campo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section fade-in">
+            <h2>Stack Tecnológico</h2>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin: 2rem 0;">
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">ROS Medical</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Python</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">TensorFlow Medical</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">OpenCV</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">DICOM</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">HL7 FHIR</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">PostgreSQL</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Redis</div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section fade-in">
+            <h2>Más Información</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    ¿Interesado en implementar Robot Triaje en tu institución médica?
+                </p>
+                <a href="../index.html#contacto" style="display: inline-block; background: linear-gradient(45deg, #e74c3c, #c0392b); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: bold;">
+                    Contactar Equipo Médico
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #333; color: white; text-align: center; padding: 2rem 0; margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2025 Mecasenatinos - Robot Triaje. Salvando vidas con tecnología.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.textContent.replace(/[^\d.-]/g, ''));
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    const originalText = counter.textContent;
+                    if (originalText.includes('%')) {
+                        counter.textContent = Math.ceil(current) + '%';
+                    } else if (originalText.includes('/')) {
+                        counter.textContent = originalText.replace(/\d+/, Math.ceil(current));
+                    } else if (originalText.includes('+')) {
+                        counter.textContent = Math.ceil(current) + '+';
+                    } else {
+                        counter.textContent = Math.ceil(current);
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>

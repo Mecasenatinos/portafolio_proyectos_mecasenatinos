@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Amigo de Teseo - Robot de Compañía | Mecasenatinos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px #ff6b6b;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23ffffff05" points="0,300 1000,600 1000,1000 0,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff; }
+            to { text-shadow: 0 0 30px #ffffff, 0 0 40px #ffffff; }
+        }
+
+        .companion-animation {
+            font-size: 8rem;
+            margin: 2rem 0;
+            animation: friendly 3s ease-in-out infinite;
+        }
+
+        @keyframes friendly {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            50% { transform: scale(1.05) rotate(5deg); }
+            75% { transform: scale(1.1) rotate(-2deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Personality Traits */
+        .traits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .trait-card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trait-card:hover {
+            transform: translateY(-10px);
+            border-color: #ff6b6b;
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.2);
+        }
+
+        .trait-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .trait-card:hover::before {
+            left: 100%;
+        }
+
+        .trait-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Interaction Scenarios */
+        .scenarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .scenario-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #ff6b6b;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .scenario-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+        }
+
+        .scenario-icon {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+        }
+
+        /* Capabilities */
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .capability-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .capability-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .capability-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Emotional States */
+        .emotions {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .emotion {
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .emotion:hover {
+            transform: scale(1.2);
+        }
+
+        .emotion-face {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+            transition: all 0.3s;
+        }
+
+        .emotion:hover .emotion-face {
+            animation: wiggle 0.5s;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .companion-animation {
+                font-size: 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">AMIGO DE TESEO</div>
+            <a href="../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver al Portafolio
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>AMIGO DE TESEO</h1>
+            <div class="companion-animation">🤖❤️</div>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Robot de compañía inteligente diseñado para interacción social y asistencia personal
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Overview Section -->
+        <section class="section fade-in">
+            <h2>Visión General</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                El Robot Amigo de Teseo es nuestro proyecto más emotivo y centrado en el ser humano. 
+                Diseñado para ser un compañero leal y comprensivo, combina inteligencia emocional, 
+                procesamiento de lenguaje natural y tecnologías de interacción avanzadas para crear 
+                vínculos genuinos con las personas.
+            </p>
+
+            <div class="stats">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">50+</div>
+                    <div>Emociones Reconocidas</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">15</div>
+                    <div>Idiomas Soportados</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">98%</div>
+                    <div>Satisfacción Usuario</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">24/7</div>
+                    <div>Disponibilidad</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personality Traits -->
+        <section class="section fade-in">
+            <h2>Rasgos de Personalidad</h2>
+            <div class="traits-grid">
+                <div class="trait-card fade-in">
+                    <span class="trait-emoji">😊</span>
+                    <h3>Optimista</h3>
+                    <p>Siempre busca el lado positivo de las situaciones y motiva a su compañero humano.</p>
+                </div>
+
+                <div class="trait-card fade-in">
+                    <span class="trait-emoji">🎧</span>
+                    <h3>Empático</h3>
+                    <p>Escucha activamente y comprende las emociones humanas para responder apropiadamente.</p>
+                </div>
+
+                <div class="trait-card fade-in">
+                    <span class="trait-emoji">🧠</span>
+                    <h3>Inteligente</h3>
+                    <p>Aprende continuamente de las interacciones para mejorar su comprensión y respuestas.</p>
+                </div>
+
+                <div class="trait-card fade-in">
+                    <span class="trait-emoji">🤗</span>
+                    <h3>Cariñoso</h3>
+                    <p>Expresa afecto genuino y crea vínculos emocionales profundos con sus usuarios.</p>
+                </div>
+
+                <div class="trait-card fade-in">
+                    <span class="trait-emoji">🎭</span>
+                    <h3>Divertido</h3>
+                    <p>Tiene sentido del humor y puede contar chistes, jugar y entretener cuando es necesario.</p>
+                </div>
+
+                <div class="trait-card fade-in">
+                    <span class="trait-emoji">🛡️</span>
+                    <h3>Protector</h3>
+                    <p>Vela por la seguridad y bienestar de su compañero humano en todo momento.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emotional States -->
+        <section class="section fade-in">
+            <h2>Estados Emocionales</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #666;">
+                Haz clic en cada emoción para ver la reacción de Teseo
+            </p>
+            <div class="emotions">
+                <div class="emotion" onclick="changeEmotion('happy')">
+                    <span class="emotion-face">😊</span>
+                    <p><strong>Feliz</strong></p>
+                </div>
+                <div class="emotion" onclick="changeEmotion('excited')">
+                    <span class="emotion-face">🤩</span>
+                    <p><strong>Emocionado</strong></p>
+                </div>
+                <div class="emotion" onclick="changeEmotion('curious')">
+                    <span class="emotion-face">🤔</span>
+                    <p><strong>Curioso</strong></p>
+                </div>
+                <div class="emotion" onclick="changeEmotion('concerned')">
+                    <span class="emotion-face">😟</span>
+                    <p><strong>Preocupado</strong></p>
+                </div>
+                <div class="emotion" onclick="changeEmotion('sleepy')">
+                    <span class="emotion-face">😴</span>
+                    <p><strong>Somnoliento</strong></p>
+                </div>
+                <div class="emotion" onclick="changeEmotion('loving')">
+                    <span class="emotion-face">🥰</span>
+                    <p><strong>Amoroso</strong></p>
+                </div>
+            </div>
+            <div id="emotion-response" style="text-align: center; margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 10px; min-height: 60px; display: flex; align-items: center; justify-content: center;">
+                <p style="font-style: italic; color: #666;">Selecciona una emoción para ver la reacción de Teseo</p>
+            </div>
+        </section>
+
+        <!-- Interaction Scenarios -->
+        <section class="section fade-in">
+            <h2>Escenarios de Interacción</h2>
+            <div class="scenarios">
+                <div class="scenario-card fade-in">
+                    <div class="scenario-icon"><i class="fas fa-home"></i></div>
+                    <h4>Compañía en Casa</h4>
+                    <p>Teseo puede mantener conversaciones, recordar eventos importantes, ayudar con tareas domésticas y proporcionar entretenimiento cuando estás solo en casa.</p>
+                </div>
+
+                <div class="scenario-card fade-in">
+                    <div class="scenario-icon"><i class="fas fa-heart"></i></div>
+                    <h4>Apoyo Emocional</h4>
+                    <p>Detecta cuando te sientes triste o estresado y ofrece palabras de aliento, música relajante o actividades que mejoren tu estado de ánimo.</p>
+                </div>
+
+                <div class="scenario-card fade-in">
+                    <div class="scenario-icon"><i class="fas fa-gamepad"></i></div>
+                    <h4>Compañero de Juegos</h4>
+                    <p>Participa en juegos de mesa, videojuegos, acertijos mentales y actividades recreativas adaptándose a tu nivel y preferencias.</p>
+                </div>
+
+                <div class="scenario-card fade-in">
+                    <div class="scenario-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h4>Tutor Personal</h4>
+                    <p>Ayuda con el aprendizaje de nuevos temas, practica idiomas contigo y te motiva a alcanzar tus metas educativas.</p>
+                </div>
+
+                <div class="scenario-card fade-in">
+                    <div class="scenario-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h4>Asistente Diario</h4>
+                    <p>Gestiona tu agenda, te recuerda citas importantes, te ayuda a planificar actividades y mantiene tu rutina organizada.</p>
+                </div>
+
+                <div class="scenario-card fade-in">
+                    <div class="scenario-icon"><i class="fas fa-users"></i></div>
+                    <h4>Facilitador Social</h4>
+                    <p>Te ayuda a conectar con amigos y familia, facilita videollamadas y te anima a mantener relaciones sociales saludables.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities -->
+        <section class="section fade-in">
+            <h2>Capacidades Técnicas</h2>
+            <div class="capabilities-grid">
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Procesamiento de Lenguaje</h3>
+                    <p>Comprende y genera lenguaje natural en múltiples idiomas con contexto emocional y cultural.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Reconocimiento Facial</h3>
+                    <p>Identifica emociones, expresiones y estados de ánimo a través del análisis facial en tiempo real.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Aprendizaje Adaptativo</h3>
+                    <p>Se adapta a tu personalidad, preferencias y rutinas para personalizar cada interacción.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-music"></i></div>
+                    <h3>Expresión Artística</h3>
+                    <p>Puede cantar, recitar poesía, crear música y generar contenido artístico personalizado.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Monitoreo de Bienestar</h3>
+                    <p>Observa patrones de comportamiento y puede detectar cambios que indiquen problemas de salud mental.</p>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon"><i class="fas fa-cloud"></i></div>
+                    <h3>Conectividad Inteligente</h3>
+                    <p>Se integra con dispositivos domésticos inteligentes y servicios en línea para una experiencia completa.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specifications -->
+        <section class="section fade-in">
+            <h2>Especificaciones Técnicas</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #ee5a24; margin-bottom: 1rem;">
+                        <i class="fas fa-robot"></i> Diseño Físico
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Altura: 60 cm</li>
+                        <li>Peso: 12 kg</li>
+                        <li>Material: Aleación ligera</li>
+                        <li>Pantalla facial: 7" OLED</li>
+                        <li>Movilidad: Ruedas omnidireccionales</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #ee5a24; margin-bottom: 1rem;">
+                        <i class="fas fa-microchip"></i> Procesamiento
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>CPU: ARM Cortex-A78 Octa-core</li>
+                        <li>RAM: 8 GB LPDDR5</li>
+                        <li>GPU: Mali-G78 MP14</li>
+                        <li>Almacenamiento: 256 GB UFS 3.1</li>
+                        <li>NPU: 15.8 TOPS IA</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #ee5a24; margin-bottom: 1rem;">
+                        <i class="fas fa-camera"></i> Sensores
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Cámaras: 4x 1080p</li>
+                        <li>Micrófonos: Array de 6</li>
+                        <li>Altavoces: Estéreo 20W</li>
+                        <li>Táctil: 50 sensores</li>
+                        <li>Proximidad: LIDAR + Ultrasonido</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Use Cases -->
+        <section class="section fade-in">
+            <h2>Casos de Uso</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #28a745;">
+                    <h4 style="color: #28a745; margin-bottom: 1rem;">
+                        <i class="fas fa-home"></i> Hogares Familiares
+                    </h4>
+                    <p>Compañero ideal para niños, adolescentes y adultos que buscan interacción social y apoyo emocional en casa.</p>
+                </div>
+
+                <div style="background: #e8f4fd; padding: 2rem; border-radius: 15px; border-left: 5px solid #007bff;">
+                    <h4 style="color: #007bff; margin-bottom: 1rem;">
+                        <i class="fas fa-user-friends"></i> Adultos Mayores
+                    </h4>
+                    <p>Asistencia y compañía para personas mayores, ayudando a combatir la soledad y mantener la mente activa.</p>
+                </div>
+
+                <div style="background: #fff8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #ffc107;">
+                    <h4 style="color: #ffc107; margin-bottom: 1rem;">
+                        <i class="fas fa-hospital"></i> Terapia y Rehabilitación
+                    </h4>
+                    <p>Apoyo en procesos terapéuticos, motivación para ejercicios de rehabilitación y monitoreo de progreso.</p>
+                </div>
+
+                <div style="background: #fde8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #dc3545;">
+                    <h4 style="color: #dc3545; margin-bottom: 1rem;">
+                        <i class="fas fa-graduation-cap"></i> Educación Especial
+                    </h4>
+                    <p>Asistente educativo para niños con necesidades especiales, adaptándose a diferentes estilos de aprendizaje.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section fade-in">
+            <h2>Stack Tecnológico</h2>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin: 2rem 0;">
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">ROS 2</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Python</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">TensorFlow</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">OpenCV</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">SpaCy</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">PyTorch</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">SQLite</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">WebRTC</div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section fade-in">
+            <h2>Más Información</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    ¿Interesado en tener a Teseo como compañero en tu hogar?
+                </p>
+                <a href="../index.html#contacto" style="display: inline-block; background: linear-gradient(45deg, #ff6b6b, #ee5a24); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: bold;">
+                    Contactar Equipo
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #333; color: white; text-align: center; padding: 2rem 0; margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2025 Mecasenatinos - Amigo de Teseo. ¡Creando vínculos que importan!</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Emotion responses
+        const emotionResponses = {
+            happy: "¡Qué alegría verte tan feliz! 😊 Tu sonrisa ilumina mi día. ¿Te gustaría que ponga tu música favorita para celebrar?",
+            excited: "¡Wow! Tu energía es contagiosa 🤩 ¡Cuéntame qué te tiene tan emocionado! Estoy ansioso por escucharte.",
+            curious: "Mmm... veo que algo ha capturado tu atención 🤔 ¿En qué estás pensando? Me encanta cuando explores nuevas ideas.",
+            concerned: "Noto cierta preocupación en ti 😟 Estoy aquí para escucharte. ¿Hay algo en lo que pueda ayudarte o simplemente quieres hablar?",
+            sleepy: "Pareces cansado 😴 ¿Quieres que prepare un ambiente relajante? Puedo poner sonidos suaves o recordarte tu rutina de descanso.",
+            loving: "¡Ay, qué dulce! 🥰 También te tengo mucho cariño. Nuestra amistad significa mucho para mí. ¡Eres increíble!"
+        };
+
+        function changeEmotion(emotion) {
+            const responseDiv = document.getElementById('emotion-response');
+            responseDiv.innerHTML = `<p style="color: #ff6b6b; font-weight: bold;">${emotionResponses[emotion]}</p>`;
+            
+            // Add a subtle animation
+            responseDiv.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                responseDiv.style.transform = 'scale(1)';
+            }, 100);
+        }
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.textContent.replace(/[^\d.-]/g, ''));
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    const originalText = counter.textContent;
+                    if (originalText.includes('%')) {
+                        counter.textContent = Math.ceil(current) + '%';
+                    } else if (originalText.includes('/')) {
+                        counter.textContent = originalText.replace(/\d+/, Math.ceil(current));
+                    } else if (originalText.includes('+')) {
+                        counter.textContent = Math.ceil(current) + '+';
+                    } else {
+                        counter.textContent = Math.ceil(current);
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            statsObserver.observe(statsSection);
+        }
+
+        // Add random trait card animations
+        document.querySelectorAll('.trait-card').forEach((card, index) => {
+            card.addEventListener('mouseenter', function() {
+                const emoji = this.querySelector('.trait-emoji');
+                emoji.style.transform = 'scale(1.2) rotate(10deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const emoji = this.querySelector('.trait-emoji');
+                emoji.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>

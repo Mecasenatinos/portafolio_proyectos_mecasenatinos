@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Humongosaurios - Robot Dinosaurio | Mecasenatinos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #9b59b6;
+            text-shadow: 0 0 10px #9b59b6;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23ffffff05" points="0,300 1000,600 1000,1000 0,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff; }
+            to { text-shadow: 0 0 30px #ffffff, 0 0 40px #ffffff; }
+        }
+
+        .dino-animation {
+            font-size: 8rem;
+            margin: 2rem 0;
+            animation: stomp 3s ease-in-out infinite;
+        }
+
+        @keyframes stomp {
+            0%, 100% { transform: translateY(0px) rotate(-2deg); }
+            25% { transform: translateY(-15px) rotate(2deg); }
+            50% { transform: translateY(0px) rotate(-2deg); }
+            75% { transform: translateY(-8px) rotate(1deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #8e44ad, #9b59b6);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #9b59b6;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(155, 89, 182, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #8e44ad;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Size Comparison */
+        .size-comparison {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .size-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .size-item {
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .size-item:hover {
+            transform: scale(1.1);
+        }
+
+        .size-item.human {
+            font-size: 3rem;
+        }
+
+        .size-item.robot {
+            font-size: 6rem;
+            color: #8e44ad;
+        }
+
+        /* Capabilities Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #8e44ad, #9b59b6);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background: #9b59b6;
+            border: 4px solid #ffffff;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -16px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #8e44ad 0%, #9b59b6 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .dino-animation {
+                font-size: 6rem;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item::after {
+                left: 31px;
+            }
+            .timeline-item:nth-child(even) {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">HUMONGOSAURIOS</div>
+            <a href="../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver al Portafolio
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>HUMONGOSAURIOS</h1>
+            <div class="dino-animation">🦕🤖</div>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Robot de gran escala inspirado en dinosaurios con múltiples capacidades de movimiento
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Overview Section -->
+        <section class="section fade-in">
+            <h2>Visión General</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                El Robot Humongosaurios es nuestro proyecto más ambicioso en términos de escala y biomimética. 
+                Inspirado en los poderosos dinosaurios de la prehistoria, este robot gigante combina 
+                ingeniería mecánica avanzada con sistemas de control sofisticados para crear una 
+                plataforma robótica verdaderamente impresionante.
+            </p>
+
+            <div class="stats">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">12</div>
+                    <div>Metros de Altura</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">25</div>
+                    <div>Toneladas de Peso</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">64</div>
+                    <div>Actuadores</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">500</div>
+                    <div>HP de Potencia</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Size Comparison -->
+        <section class="section fade-in">
+            <h2>Comparación de Tamaño</h2>
+            <div class="size-comparison">
+                <h3 style="margin-bottom: 2rem; color: #8e44ad;">Escala Comparativa</h3>
+                <div class="size-visual">
+                    <div class="size-item human">
+                        <div>🚶‍♂️</div>
+                        <p><strong>Humano</strong><br>1.8m</p>
+                    </div>
+                    <div class="size-item">
+                        <div style="font-size: 4rem;">🚗</div>
+                        <p><strong>Automóvil</strong><br>4.5m</p>
+                    </div>
+                    <div class="size-item robot">
+                        <div>🦕</div>
+                        <p><strong>Humongosaurios</strong><br>12m</p>
+                    </div>
+                </div>
+                <p style="margin-top: 2rem; font-style: italic; color: #666;">
+                    El Humongosaurios es aproximadamente 6.5 veces más alto que un humano promedio
+                </p>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section fade-in">
+            <h2>Características Principales</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-mountain"></i></div>
+                    <h3>Escala Colosal</h3>
+                    <p>Diseño de 12 metros de altura que impone respeto y permite operaciones de gran envergadura en cualquier terreno.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-paw"></i></div>
+                    <h3>Locomoción Cuadrúpeda</h3>
+                    <p>Sistema de movimiento inspirado en dinosaurios saurópodos con estabilidad excepcional y pisada controlada.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>64 Grados de Libertad</h3>
+                    <p>Sistema articulado complejo con múltiples actuadores hidráulicos para movimientos precisos y naturales.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Estructura Resistente</h3>
+                    <p>Chasis de acero reforzado con aleaciones especiales capaz de soportar cargas extremas y condiciones adversas.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Visión 360°</h3>
+                    <p>Sistema de cámaras omnidireccional montado en el "cuello" para percepción completa del entorno.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-sound-waves"></i></div>
+                    <h3>Sistema Sonoro</h3>
+                    <p>Capacidad de emitir sonidos realistas de dinosaurio para comunicación y efectos dramáticos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities Timeline -->
+        <section class="section fade-in">
+            <h2>Evolución de Capacidades</h2>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h4 style="color: #8e44ad;">Movimiento Básico</h4>
+                        <p>Capacidad de caminar en línea recta con estabilidad, velocidad de 2 km/h</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h4 style="color: #8e44ad;">Navegación Autónoma</h4>
+                        <p>Sistema de navegación GPS y evitación de obstáculos implementado</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h4 style="color: #8e44ad;">Articulación Avanzada</h4>
+                        <p>Movimiento completo del cuello y cola, expresiones faciales básicas</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h4 style="color: #8e44ad;">Interactividad</h4>
+                        <p>Respuesta a comandos de voz y gestos, interacción con espectadores</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specifications -->
+        <section class="section fade-in">
+            <h2>Especificaciones Técnicas</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #8e44ad; margin-bottom: 1rem;">
+                        <i class="fas fa-ruler-combined"></i> Dimensiones Físicas
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Altura: 12 metros</li>
+                        <li>Longitud: 22 metros</li>
+                        <li>Ancho: 4 metros</li>
+                        <li>Peso: 25 toneladas</li>
+                        <li>Envergadura: 6 metros</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #8e44ad; margin-bottom: 1rem;">
+                        <i class="fas fa-cogs"></i> Sistema Mecánico
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Actuadores hidráulicos: 64</li>
+                        <li>Motores eléctricos: 32</li>
+                        <li>Sensores de presión: 128</li>
+                        <li>Encoders rotativos: 96</li>
+                        <li>Sistema hidráulico: 2000 PSI</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #8e44ad; margin-bottom: 1rem;">
+                        <i class="fas fa-battery-full"></i> Sistema de Energía
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Motor diesel: 500 HP</li>
+                        <li>Generador eléctrico: 400 KW</li>
+                        <li>Baterías de respaldo: 200 KWh</li>
+                        <li>Autonomía: 8 horas continuas</li>
+                        <li>Consumo: 50 litros/hora</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Applications -->
+        <section class="section fade-in">
+            <h2>Aplicaciones</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #28a745;">
+                    <h4 style="color: #28a745; margin-bottom: 1rem;">
+                        <i class="fas fa-film"></i> Entretenimiento
+                    </h4>
+                    <p>Espectáculos en parques temáticos, producciones cinematográficas y eventos especiales que requieren impacto visual extraordinario.</p>
+                </div>
+
+                <div style="background: #e8f4fd; padding: 2rem; border-radius: 15px; border-left: 5px solid #007bff;">
+                    <h4 style="color: #007bff; margin-bottom: 1rem;">
+                        <i class="fas fa-graduation-cap"></i> Educación</h4>
+                    <p>Herramienta educativa interactiva para museos de historia natural y centros de ciencia para enseñar paleontología.</p>
+                </div>
+
+                <div style="background: #fff8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #ffc107;">
+                    <h4 style="color: #ffc107; margin-bottom: 1rem;">
+                        <i class="fas fa-hard-hat"></i> Construcción
+                    </h4>
+                    <p>Plataforma móvil para trabajos de construcción en altura, transporte de materiales pesados y demoliciones controladas.</p>
+                </div>
+
+                <div style="background: #fde8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #dc3545;">
+                    <h4 style="color: #dc3545; margin-bottom: 1rem;">
+                        <i class="fas fa-search"></i> Exploración
+                    </h4>
+                    <p>Misiones de reconocimiento en terrenos difíciles, exploración de áreas peligrosas y operaciones de rescate de gran escala.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Challenges and Solutions -->
+        <section class="section fade-in">
+            <h2>Desafíos y Soluciones</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                <div style="background: #fff3cd; padding: 2rem; border-radius: 15px; border: 2px solid #ffc107;">
+                    <h4 style="color: #856404; margin-bottom: 1rem;">
+                        <i class="fas fa-exclamation-triangle"></i> Desafío: Estabilidad
+                    </h4>
+                    <p><strong>Problema:</strong> Mantener equilibrio con 25 toneladas en movimiento</p>
+                    <p><strong>Solución:</strong> Sistema giroscópico activo y distribución de peso dinámica</p>
+                </div>
+
+                <div style="background: #d1ecf1; padding: 2rem; border-radius: 15px; border: 2px solid #17a2b8;">
+                    <h4 style="color: #0c5460; margin-bottom: 1rem;">
+                        <i class="fas fa-bolt"></i> Desafío: Consumo Energético
+                    </h4>
+                    <p><strong>Problema:</strong> Alimentar 64 actuadores hidráulicos simultáneamente</p>
+                    <p><strong>Solución:</strong> Sistema híbrido diesel-eléctrico con recuperación de energía</p>
+                </div>
+
+                <div style="background: #d4edda; padding: 2rem; border-radius: 15px; border: 2px solid #28a745;">
+                    <h4 style="color: #155724; margin-bottom: 1rem;">
+                        <i class="fas fa-wrench"></i> Desafío: Mantenimiento
+                    </h4>
+                    <p><strong>Problema:</strong> Acceso a componentes internos para reparaciones</p>
+                    <p><strong>Solución:</strong> Diseño modular con paneles de acceso y diagnóstico remoto</p>
+                </div>
+
+                <div style="background: #f8d7da; padding: 2rem; border-radius: 15px; border: 2px solid #dc3545;">
+                    <h4 style="color: #721c24; margin-bottom: 1rem;">
+                        <i class="fas fa-shield-alt"></i> Desafío: Seguridad
+                    </h4>
+                    <p><strong>Problema:</strong> Operación segura cerca de personas y estructuras</p>
+                    <p><strong>Solución:</strong> Múltiples sistemas de seguridad redundantes y zona de exclusión automática</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section fade-in">
+            <h2>Stack Tecnológico</h2>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin: 2rem 0;">
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">ROS Industrial</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">C++</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Python</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Simulink</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">CANbus</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Hydraulics Pro</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">SolidWorks</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">LabVIEW</div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section fade-in">
+            <h2>Más Información</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    ¿Interesado en contratar al Humongosaurios para tu evento o proyecto?
+                </p>
+                <a href="../index.html#contacto" style="display: inline-block; background: linear-gradient(45deg, #8e44ad, #9b59b6); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: bold;">
+                    Contactar Equipo
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #333; color: white; text-align: center; padding: 2rem 0; margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2025 Mecasenatinos - Humongosaurios. ¡Reviviendo la era de los gigantes!</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.textContent);
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    counter.textContent = Math.ceil(current);
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            statsObserver.observe(statsSection);
+        }
+
+        // Dinosaur roar sound effect simulation
+        function playRoar() {
+            // This would trigger a sound effect in a real implementation
+            console.log('ROAAAAAR! 🦕');
+        }
+
+        // Add click event to the dino animation
+        document.querySelector('.dino-animation').addEventListener('click', playRoar);
+
+        // Interactive size comparison
+        document.querySelectorAll('.size-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.2)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

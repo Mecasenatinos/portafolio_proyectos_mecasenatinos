@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot 2 Legs - Robot Bípedo | Mecasenatinos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23ffffff05" points="0,300 1000,600 1000,1000 0,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff; }
+            to { text-shadow: 0 0 30px #00ffff, 0 0 40px #00ffff; }
+        }
+
+        .robot-animation {
+            font-size: 8rem;
+            margin: 2rem 0;
+            animation: walkCycle 2s ease-in-out infinite;
+        }
+
+        @keyframes walkCycle {
+            0%, 100% { transform: rotate(-5deg) translateY(0px); }
+            25% { transform: rotate(0deg) translateY(-10px); }
+            50% { transform: rotate(5deg) translateY(0px); }
+            75% { transform: rotate(0deg) translateY(-5px); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ffff;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #0080ff;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Tech Stack */
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .tech-item {
+            background: #f8f9fa;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+        }
+
+        .tech-item:hover {
+            border-color: #00ffff;
+            transform: translateY(-3px);
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .robot-animation {
+                font-size: 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">ROBOT 2 LEGS</div>
+            <a href="../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver al Portafolio
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ROBOT 2 LEGS</h1>
+            <div class="robot-animation">🤖</div>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Robot bípedo avanzado con locomoción natural y equilibrio dinámico
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Overview Section -->
+        <section class="section fade-in">
+            <h2>Visión General</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                El Robot 2 Legs es nuestro proyecto de robótica bípeda más avanzado, diseñado para imitar 
+                la locomoción humana natural. Equipado con sistemas de equilibrio dinámico y control 
+                adaptativo, este robot puede caminar, correr y mantener estabilidad en terrenos irregulares.
+            </p>
+
+            <div class="stats">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">12</div>
+                    <div>Grados de Libertad</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">3.5</div>
+                    <div>km/h Velocidad Máx</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">45°</div>
+                    <div>Inclinación Máxima</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">2</div>
+                    <div>Horas Autonomía</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section fade-in">
+            <h2>Características Principales</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h3>Equilibrio Dinámico</h3>
+                    <p>Sistema de control avanzado que mantiene la estabilidad durante el movimiento y ante perturbaciones externas.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-running"></i></div>
+                    <h3>Locomoción Natural</h3>
+                    <p>Patrones de caminar biomimético que replican eficientemente la marcha humana.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Visión Computacional</h3>
+                    <p>Cámaras estéreo y sensores LIDAR para navegación autónoma y detección de obstáculos.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>IA Adaptativa</h3>
+                    <p>Algoritmos de aprendizaje automático que mejoran la eficiencia del movimiento con el tiempo.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-cog"></i></div>
+                    <h3>Control Preciso</h3>
+                    <p>Servomotores de alta precisión con retroalimentación de posición y torque en tiempo real.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-battery-three-quarters"></i></div>
+                    <h3>Energía Eficiente</h3>
+                    <p>Sistema de gestión energética optimizado para máxima autonomía operacional.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specs -->
+        <section class="section fade-in">
+            <h2>Especificaciones Técnicas</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #0080ff; margin-bottom: 1rem;">
+                        <i class="fas fa-ruler"></i> Dimensiones Físicas
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Altura: 165 cm</li>
+                        <li>Peso: 45 kg</li>
+                        <li>Longitud de paso: 0.8 m</li>
+                        <li>Ancho de base: 25 cm</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #0080ff; margin-bottom: 1rem;">
+                        <i class="fas fa-tachometer-alt"></i> Rendimiento
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Velocidad: 0.5 - 3.5 km/h</li>
+                        <li>Tiempo de respuesta: <50ms</li>
+                        <li>Precisión de paso: ±2 cm</li>
+                        <li>Estabilidad: 99.5%</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #0080ff; margin-bottom: 1rem;">
+                        <i class="fas fa-brain"></i> Sistema de Control
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>CPU: ARM Cortex-A78</li>
+                        <li>RAM: 16 GB LPDDR5</li>
+                        <li>Almacenamiento: 512 GB SSD</li>
+                        <li>GPU: Integrada para IA</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section fade-in">
+            <h2>Stack Tecnológico</h2>
+            <div class="tech-stack">
+                <div class="tech-item">ROS 2</div>
+                <div class="tech-item">Python</div>
+                <div class="tech-item">C++</div>
+                <div class="tech-item">OpenCV</div>
+                <div class="tech-item">TensorFlow</div>
+                <div class="tech-item">Gazebo</div>
+                <div class="tech-item">MoveIt</div>
+                <div class="tech-item">Arduino</div>
+            </div>
+        </section>
+
+        <!-- Applications -->
+        <section class="section fade-in">
+            <h2>Aplicaciones</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #28a745;">
+                    <h4 style="color: #28a745; margin-bottom: 1rem;">
+                        <i class="fas fa-home"></i> Asistencia Doméstica
+                    </h4>
+                    <p>Robot de servicio para tareas domésticas y cuidado de personas mayores.</p>
+                </div>
+
+                <div style="background: #e8f4fd; padding: 2rem; border-radius: 15px; border-left: 5px solid #007bff;">
+                    <h4 style="color: #007bff; margin-bottom: 1rem;">
+                        <i class="fas fa-search"></i> Exploración
+                    </h4>
+                    <p>Misiones de reconocimiento en terrenos difíciles o peligrosos.</p>
+                </div>
+
+                <div style="background: #fff8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #ffc107;">
+                    <h4 style="color: #ffc107; margin-bottom: 1rem;">
+                        <i class="fas fa-graduation-cap"></i> Investigación
+                    </h4>
+                    <p>Plataforma de investigación para estudios de locomoción bípeda.</p>
+                </div>
+
+                <div style="background: #fde8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #dc3545;">
+                    <h4 style="color: #dc3545; margin-bottom: 1rem;">
+                        <i class="fas fa-exclamation-triangle"></i> Emergencias
+                    </h4>
+                    <p>Operaciones de rescate en zonas de desastre y búsqueda de supervivientes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Timeline -->
+        <section class="section fade-in">
+            <h2>Cronología de Desarrollo</h2>
+            <div style="position: relative; max-width: 800px; margin: 0 auto;">
+                <div style="position: absolute; left: 50%; width: 4px; height: 100%; background: linear-gradient(to bottom, #00ffff, #0080ff); transform: translateX(-50%);"></div>
+                
+                <div style="display: flex; justify-content: flex-start; margin: 2rem 0; position: relative;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); max-width: 45%; margin-left: 10%;">
+                        <h4 style="color: #0080ff;">Fase 1: Diseño Conceptual</h4>
+                        <p style="font-size: 0.9rem; color: #666;">Investigación biomecánica y modelado 3D del sistema locomotor.</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; margin: 2rem 0; position: relative;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); max-width: 45%; margin-right: 10%;">
+                        <h4 style="color: #0080ff;">Fase 2: Prototipado</h4>
+                        <p style="font-size: 0.9rem; color: #666;">Construcción del primer prototipo y pruebas básicas de equilibrio.</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-start; margin: 2rem 0; position: relative;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); max-width: 45%; margin-left: 10%;">
+                        <h4 style="color: #0080ff;">Fase 3: Control Avanzado</h4>
+                        <p style="font-size: 0.9rem; color: #666;">Implementación de algoritmos de control y sistemas de sensores.</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; margin: 2rem 0; position: relative;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); max-width: 45%; margin-right: 10%;">
+                        <h4 style="color: #0080ff;">Fase 4: Optimización</h4>
+                        <p style="font-size: 0.9rem; color: #666;">Mejoras de eficiencia energética y estabilidad del sistema.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section fade-in">
+            <h2>Más Información</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    ¿Interesado en conocer más sobre el Robot 2 Legs? ¡Contáctanos!
+                </p>
+                <a href="../index.html#contacto" style="display: inline-block; background: linear-gradient(45deg, #00ffff, #0080ff); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: bold;">
+                    Contactar Equipo
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #333; color: white; text-align: center; padding: 2rem 0; margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2025 Mecasenatinos - Robot 2 Legs. Avanzando en robótica bípeda.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.textContent);
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    if (target < 10) {
+                        counter.textContent = current.toFixed(1);
+                    } else {
+                        counter.textContent = Math.ceil(current);
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>

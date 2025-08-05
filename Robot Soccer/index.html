@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Soccer - Robot Futbolista | Mecasenatinos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #2ecc71;
+            text-shadow: 0 0 10px #2ecc71;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23ffffff05" points="0,300 1000,600 1000,1000 0,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff; }
+            to { text-shadow: 0 0 30px #ffffff, 0 0 40px #ffffff; }
+        }
+
+        .soccer-animation {
+            font-size: 8rem;
+            margin: 2rem 0;
+            animation: kickBall 3s ease-in-out infinite;
+        }
+
+        @keyframes kickBall {
+            0%, 100% { transform: translateX(0px) rotate(0deg); }
+            25% { transform: translateX(-20px) rotate(-10deg); }
+            50% { transform: translateX(20px) rotate(10deg); }
+            75% { transform: translateX(0px) rotate(0deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: #2ecc71;
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: #27ae60;
+            margin-bottom: 1rem;
+        }
+
+        /* Field Layout */
+        .field {
+            background: #2ecc71;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .field::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            border: 3px solid white;
+            border-radius: 10px;
+        }
+
+        .field::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border: 3px solid white;
+            border-radius: 50%;
+        }
+
+        .robot-player {
+            font-size: 3rem;
+            color: white;
+            position: absolute;
+            animation: move 4s ease-in-out infinite;
+        }
+
+        .robot-player:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .robot-player:nth-child(2) { top: 60%; left: 30%; animation-delay: 1s; }
+        .robot-player:nth-child(3) { top: 40%; right: 25%; animation-delay: 2s; }
+
+        @keyframes move {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .soccer-animation {
+                font-size: 6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">ROBOT SOCCER</div>
+            <a href="../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver al Portafolio
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ROBOT SOCCER</h1>
+            <div class="soccer-animation">⚽🤖</div>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Robot futbolista autónomo con IA avanzada para competencias RoboCup
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Overview Section -->
+        <section class="section fade-in">
+            <h2>Visión General</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                Nuestro Robot Soccer es un jugador autónomo diseñado para competencias de RoboCup. 
+                Combina visión computacional avanzada, toma de decisiones en tiempo real y control 
+                preciso para jugar fútbol de manera estratégica y coordinada con otros robots.
+            </p>
+
+            <div class="stats">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">360°</div>
+                    <div>Visión Omnidireccional</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">15</div>
+                    <div>m/s Velocidad Pelota</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">50</div>
+                    <div>ms Tiempo Respuesta</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">95%</div>
+                    <div>Precisión de Pase</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Field Visualization -->
+        <section class="section fade-in">
+            <h2>Simulación de Campo</h2>
+            <div class="field">
+                <div class="robot-player">🤖</div>
+                <div class="robot-player">🤖</div>
+                <div class="robot-player">🤖</div>
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 2rem;">⚽</div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section fade-in">
+            <h2>Habilidades del Robot</h2>
+            <div class="skills-grid">
+                <div class="skill-card fade-in">
+                    <div class="skill-icon"><i class="fas fa-eye"></i></div>
+                    <h3>Visión Computacional</h3>
+                    <p>Sistema de cámaras omnidireccional que detecta pelotas, robots y límites del campo en tiempo real.</p>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon"><i class="fas fa-running"></i></div>
+                    <h3>Locomoción Ágil</h3>
+                    <p>Movimiento omnidireccional rápido y preciso con capacidad de giro instantáneo.</p>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Control de Pelota</h3>
+                    <p>Sistema de dribbling y disparo con precisión milimétrica para pases y goles efectivos.</p>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                    <h3>IA Estratégica</h3>
+                    <p>Algoritmos de toma de decisiones que planifican jugadas y coordinan con compañeros de equipo.</p>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon"><i class="fas fa-wifi"></i></div>
+                    <h3>Comunicación</h3>
+                    <p>Red de comunicación inalámbrica para coordinación en tiempo real entre robots del equipo.</p>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Defensa Inteligente</h3>
+                    <p>Algoritmos defensivos que predicen movimientos del oponente y bloquean ataques.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specs -->
+        <section class="section fade-in">
+            <h2>Especificaciones Técnicas</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #27ae60; margin-bottom: 1rem;">
+                        <i class="fas fa-cogs"></i> Sistema Mecánico
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Chassis: Fibra de carbono</li>
+                        <li>Peso: 8.5 kg</li>
+                        <li>Diámetro: 18 cm</li>
+                        <li>Altura: 15 cm</li>
+                        <li>Ruedas: Omnidireccionales</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #27ae60; margin-bottom: 1rem;">
+                        <i class="fas fa-camera"></i> Sistema de Visión
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Cámara omnidireccional</li>
+                        <li>Resolución: 1080p @ 60fps</li>
+                        <li>Campo de visión: 360°</li>
+                        <li>Procesamiento: OpenCV</li>
+                        <li>Latencia: <16ms</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #27ae60; margin-bottom: 1rem;">
+                        <i class="fas fa-microchip"></i> Computación
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>CPU: Intel i7-1165G7</li>
+                        <li>RAM: 16 GB DDR4</li>
+                        <li>GPU: Intel Iris Xe</li>
+                        <li>Almacenamiento: 256 GB SSD</li>
+                        <li>OS: Ubuntu 20.04 LTS</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Competition History -->
+        <section class="section fade-in">
+            <h2>Historial de Competencias</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                <div style="background: #fff3cd; padding: 2rem; border-radius: 15px; border-left: 5px solid #ffc107;">
+                    <h4 style="color: #856404; margin-bottom: 1rem;">
+                        <i class="fas fa-trophy"></i> RoboCup 2024
+                    </h4>
+                    <p><strong>Posición:</strong> 3er lugar</p>
+                    <p><strong>División:</strong> Small Size League</p>
+                    <p><strong>Logro:</strong> Mejor estrategia defensiva</p>
+                </div>
+
+                <div style="background: #d4edda; padding: 2rem; border-radius: 15px; border-left: 5px solid #28a745;">
+                    <h4 style="color: #155724; margin-bottom: 1rem;">
+                        <i class="fas fa-medal"></i> Nacional 2024
+                    </h4>
+                    <p><strong>Posición:</strong> 1er lugar</p>
+                    <p><strong>División:</strong> Robots Autónomos</p>
+                    <p><strong>Logro:</strong> Campeón nacional</p>
+                </div>
+
+                <div style="background: #cce5ff; padding: 2rem; border-radius: 15px; border-left: 5px solid #007bff;">
+                    <h4 style="color: #004085; margin-bottom: 1rem;">
+                        <i class="fas fa-star"></i> Torneo Regional
+                    </h4>
+                    <p><strong>Posición:</strong> 2do lugar</p>
+                    <p><strong>División:</strong> Open League</p>
+                    <p><strong>Logro:</strong> Mejor jugada del torneo</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategy Section -->
+        <section class="section fade-in">
+            <h2>Estrategias de Juego</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px;">
+                    <h4 style="color: #28a745; margin-bottom: 1rem;">
+                        <i class="fas fa-chess"></i> Formación Ofensiva
+                    </h4>
+                    <p>Estrategia 4-2-4 con robots atacantes especializados en penetración rápida y control de pelota.</p>
+                    <ul style="margin-top: 1rem; line-height: 1.8;">
+                        <li>Pases cortos precisos</li>
+                        <li>Movimientos coordinados</li>
+                        <li>Presión alta</li>
+                    </ul>
+                </div>
+
+                <div style="background: #e8f4fd; padding: 2rem; border-radius: 15px;">
+                    <h4 style="color: #007bff; margin-bottom: 1rem;">
+                        <i class="fas fa-shield-alt"></i> Formación Defensiva
+                    </h4>
+                    <p>Sistema 5-3-2 enfocado en recuperación de pelota y contraataques rápidos.</p>
+                    <ul style="margin-top: 1rem; line-height: 1.8;">
+                        <li>Marcación zonal</li>
+                        <li>Interceptación predictiva</li>
+                        <li>Transiciones rápidas</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff8e8; padding: 2rem; border-radius: 15px;">
+                    <h4 style="color: #ffc107; margin-bottom: 1rem;">
+                        <i class="fas fa-bolt"></i> Jugadas Especiales
+                    </h4>
+                    <p>Set pieces programadas para saque de banda, córners y tiros libres.</p>
+                    <ul style="margin-top: 1rem; line-height: 1.8;">
+                        <li>Patrones de movimiento</li>
+                        <li>Coordinación temporal</li>
+                        <li>Ejecución automática</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section fade-in">
+            <h2>Stack Tecnológico</h2>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin: 2rem 0;">
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">ROS</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">C++</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Python</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">OpenCV</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">TensorFlow</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Gazebo</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Qt</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">gRSim</div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section fade-in">
+            <h2>Más Información</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    ¿Interesado en competir con nosotros o conocer más sobre Robot Soccer?
+                </p>
+                <a href="../index.html#contacto" style="display: inline-block; background: linear-gradient(45deg, #2ecc71, #27ae60); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: bold;">
+                    Contactar Equipo
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #333; color: white; text-align: center; padding: 2rem 0; margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2025 Mecasenatinos - Robot Soccer. ¡Jugando el futuro!</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.textContent.replace(/[^\d.-]/g, ''));
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    const suffix = counter.textContent.replace(/[\d.-]/g, '');
+                    if (target >= 100) {
+                        counter.textContent = Math.ceil(current) + suffix;
+                    } else {
+                        counter.textContent = current.toFixed(0) + suffix;
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            statsObserver.observe(statsSection);
+        }
+
+        // Soccer ball animation
+        const ball = document.querySelector('.field div:last-child');
+        if (ball) {
+            let x = 0;
+            let y = 0;
+            let dx = 2;
+            let dy = 1.5;
+            
+            setInterval(() => {
+                x += dx;
+                y += dy;
+                
+                if (x > 200 || x < -200) dx = -dx;
+                if (y > 80 || y < -80) dy = -dy;
+                
+                ball.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+            }, 50);
+        }
+    </script>
+</body>
+</html>

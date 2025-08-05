@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mecasenatinos - Grupo de Robótica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #00ffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23ffffff05" points="0,300 1000,600 1000,1000 0,1000"/></svg>');
+            background-size: cover;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff; }
+            to { text-shadow: 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #00ffff; }
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: #00ffff;
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            color: #0080ff;
+            margin-bottom: 1rem;
+        }
+
+        .project-card h3 {
+            font-family: 'Orbitron', monospace;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #00ffff;
+        }
+
+        /* Featured Project Styles */
+        .featured-project {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            color: white;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .featured-info h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .featured-subtitle {
+            font-size: 1.3rem;
+            color: #00ffff;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .featured-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .featured-specs {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .spec-item i {
+            color: #00ffff;
+        }
+
+        .featured-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #00ffff, #0080ff);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .featured-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4);
+        }
+
+        .featured-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .telarm-showcase {
+            position: relative;
+            font-size: 4rem;
+            animation: telarmFloat 3s ease-in-out infinite;
+        }
+
+        .textile-layers {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .layer {
+            transition: transform 0.3s ease;
+            animation: layerMove 4s ease-in-out infinite;
+        }
+
+        .layer1 { animation-delay: 0s; }
+        .layer2 { animation-delay: 0.5s; }
+        .layer3 { animation-delay: 1s; }
+
+        .thermal-waves {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .thermal-wave {
+            position: absolute;
+            border: 2px solid #ff6b35;
+            border-radius: 50%;
+            opacity: 0;
+            animation: thermalWaveAnimation 3s infinite;
+        }
+
+        .thermal-wave:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            margin: -40px;
+            animation-delay: 0s;
+        }
+
+        .thermal-wave:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            margin: -60px;
+            animation-delay: 1s;
+        }
+
+        .thermal-wave:nth-child(3) {
+            width: 160px;
+            height: 160px;
+            margin: -80px;
+            animation-delay: 2s;
+        }
+
+        @keyframes telarmFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes layerMove {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        @keyframes thermalWaveAnimation {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1);
+            }
+        }
+
+        /* Project Cards Enhancement */
+        .project-card {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .project-link {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            color: #0080ff;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover .project-link {
+            opacity: 1;
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">MECASENATINOS</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#proyectos">Proyectos</a></li>
+                <li><a href="#equipo">Equipo</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>MECASENATINOS</h1>
+            <p>Innovación en Robótica y Tecnología. Construyendo el futuro, un robot a la vez.</p>
+            <a href="#proyectos" class="cta-button">Ver Proyectos</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <div class="container">
+        <section class="section fade-in">
+            <h2>Sobre Nosotros</h2>
+            <p style="text-align: center; font-size: 1.1rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                Somos Mecasenatinos, un grupo apasionado de estudiantes de robótica dedicados a la innovación tecnológica. 
+                Nuestro objetivo es desarrollar soluciones robóticas que impacten positivamente en la sociedad, 
+                combinando creatividad, ingeniería y tecnología de vanguardia.
+            </p>
+
+            <div class="stats">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">6+</div>
+                    <div>Proyectos Desarrollados</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">4+</div>
+                    <div>Miembros del Equipo</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">2+</div>
+                    <div>Años de Experiencia</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">100%</div>
+                    <div>Pasión por la Robótica</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Project Section - TELARM -->
+        <section class="section fade-in" id="telarm-featured">
+            <h2>Proyecto Destacado</h2>
+            <div class="featured-project">
+                <div class="featured-content">
+                    <div class="featured-info">
+                        <h3>TELARM</h3>
+                        <p class="featured-subtitle">Aislante Térmico Ecológico</p>
+                        <p class="featured-description">
+                            Nuestro proyecto de innovación sostenible: desarrollo de aislantes térmicos de alta eficiencia 
+                            utilizando residuos textiles como materia prima. Una solución eco-amigable que combina 
+                            ingeniería de materiales con responsabilidad ambiental para crear productos de construcción sustentables.
+                        </p>
+                        <div class="featured-specs">
+                            <div class="spec-item">
+                                <i class="fas fa-recycle"></i>
+                                <span>100% Reciclado</span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fas fa-thermometer-half"></i>
+                                <span>Alta Eficiencia</span>
+                            </div>
+                            <div class="spec-item">
+                                <i class="fas fa-leaf"></i>
+                                <span>Eco-Friendly</span>
+                            </div>
+                        </div>
+                        <a href="Telarm/index.html" class="featured-btn">Ver Proyecto Completo</a>
+                    </div>
+                    <div class="featured-visual">
+                        <div class="telarm-showcase">
+                            <div class="textile-layers">
+                                <div class="layer layer1">�</div>
+                                <div class="layer layer2">�</div>
+                                <div class="layer layer3">🏠</div>
+                            </div>
+                            <div class="thermal-waves">
+                                <div class="thermal-wave"></div>
+                                <div class="thermal-wave"></div>
+                                <div class="thermal-wave"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="section fade-in" id="proyectos">
+            <h2>Todos Nuestros Proyectos</h2>
+            <div class="projects-grid">
+                <div class="project-card fade-in" onclick="window.location.href='Robot 2 Legs/index.html'">
+                    <div class="project-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>Robot 2 Legs</h3>
+                    <p>Robot bípedo avanzado con capacidades de locomoción natural y equilibrio dinámico.</p>
+                    <div class="project-link">Ver Proyecto →</div>
+                </div>
+
+                <div class="project-card fade-in" onclick="window.location.href='Robot Amigo de Teseo/index.html'">
+                    <div class="project-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>Robot Amigo de Teseo</h3>
+                    <p>Robot de compañía inteligente diseñado para interacción social y asistencia personal.</p>
+                    <div class="project-link">Ver Proyecto →</div>
+                </div>
+
+                <div class="project-card fade-in" onclick="window.location.href='Robot Arce/index.html'">
+                    <div class="project-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3>Robot Arce</h3>
+                    <p>Sistema robótico especializado en monitoreo ambiental y agricultura de precisión.</p>
+                    <div class="project-link">Ver Proyecto →</div>
+                </div>
+
+                <div class="project-card fade-in" onclick="window.location.href='Robot Humongosaurios/index.html'">
+                    <div class="project-icon">
+                        <i class="fas fa-dragon"></i>
+                    </div>
+                    <h3>Robot Humongosaurios</h3>
+                    <p>Robot de gran escala inspirado en dinosaurios con múltiples capacidades de movimiento.</p>
+                    <div class="project-link">Ver Proyecto →</div>
+                </div>
+
+                <div class="project-card fade-in" onclick="window.location.href='Robot Soccer/index.html'">
+                    <div class="project-icon">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <h3>Robot Soccer</h3>
+                    <p>Robot futbolista autónomo con IA avanzada para competencias de RoboCup.</p>
+                    <div class="project-link">Ver Proyecto →</div>
+                </div>
+
+                <div class="project-card fade-in" onclick="window.location.href='Robot Triaje/index.html'">
+                    <div class="project-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Robot Triaje</h3>
+                    <p>Sistema robótico médico para clasificación y asistencia en emergencias sanitarias.</p>
+                    <div class="project-link">Ver Proyecto →</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="section fade-in" id="equipo">
+            <h2>Nuestro Equipo</h2>
+            <div class="team-grid">
+                <div class="team-member fade-in">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Luis Gómez</h3>
+                    <p>Ingeniero en Robótica</p>
+                    <p>Especialista en control y programación de sistemas robóticos.</p>
+                </div>
+
+                <div class="team-member fade-in">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Alondra Suárez</h3>
+                    <p>Desarrolladora de IA</p>
+                    <p>Experta en inteligencia artificial y machine learning aplicado a robótica.</p>
+                </div>
+
+                <div class="team-member fade-in">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Diego Medina</h3>
+                    <p>Ingeniero Mecánico</p>
+                    <p>Especialista en diseño mecánico y fabricación de componentes robóticos.</p>
+                </div>
+
+                <div class="team-member fade-in">
+                    <div class="member-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Miembro del Equipo</h3>
+                    <p>Desarrollador</p>
+                    <p>Contribuyendo al futuro de la robótica con pasión e innovación.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section fade-in" id="contacto">
+            <h2>Contacto</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    ¿Interesado en colaborar con nosotros? ¡Contáctanos!
+                </p>
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; min-width: 250px;">
+                        <i class="fas fa-envelope" style="font-size: 2rem; color: #0080ff; margin-bottom: 1rem;"></i>
+                        <h4>Email</h4>
+                        <p>mecasenatinos@robotics.com</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; min-width: 250px;">
+                        <i class="fas fa-phone" style="font-size: 2rem; color: #0080ff; margin-bottom: 1rem;"></i>
+                        <h4>Teléfono</h4>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; min-width: 250px;">
+                        <i class="fas fa-map-marker-alt" style="font-size: 2rem; color: #0080ff; margin-bottom: 1rem;"></i>
+                        <h4>Ubicación</h4>
+                        <p>Lab de Robótica, Universidad</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mecasenatinos. Todos los derechos reservados.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+
+        // Add some interactive elements
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
