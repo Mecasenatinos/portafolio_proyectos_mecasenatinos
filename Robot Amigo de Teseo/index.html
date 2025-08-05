@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robot Amigo de Teseo - Robot de Compañía | Mecasenatinos</title>
+    <title>Robot Amigo de Teseo - Robot Seguidor de Línea | Mecasenatinos</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -17,7 +17,7 @@
             font-family: 'Roboto', sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
         }
 
@@ -46,12 +46,12 @@
             font-family: 'Orbitron', monospace;
             font-size: 1.5rem;
             font-weight: 900;
-            color: #ff6b6b;
-            text-shadow: 0 0 10px #ff6b6b;
+            color: #2a5298;
+            text-shadow: 0 0 10px #2a5298;
         }
 
         .back-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
             color: white;
             padding: 0.5rem 1.5rem;
             text-decoration: none;
@@ -61,7 +61,7 @@
 
         .back-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.4);
         }
 
         /* Hero Section */
@@ -102,21 +102,21 @@
         }
 
         @keyframes glow {
-            from { text-shadow: 0 0 20px #ffffff, 0 0 30px #ffffff; }
-            to { text-shadow: 0 0 30px #ffffff, 0 0 40px #ffffff; }
+            from { text-shadow: 0 0 20px #2a5298, 0 0 30px #2a5298; }
+            to { text-shadow: 0 0 30px #2a5298, 0 0 40px #2a5298; }
         }
 
         .companion-animation {
             font-size: 8rem;
             margin: 2rem 0;
-            animation: friendly 3s ease-in-out infinite;
+            animation: lineFollow 3s ease-in-out infinite;
         }
 
-        @keyframes friendly {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.1) rotate(-5deg); }
-            50% { transform: scale(1.05) rotate(5deg); }
-            75% { transform: scale(1.1) rotate(-2deg); }
+        @keyframes lineFollow {
+            0%, 100% { transform: translateX(-10px) rotate(-2deg); }
+            25% { transform: translateX(10px) rotate(2deg); }
+            50% { transform: translateX(-10px) rotate(-2deg); }
+            75% { transform: translateX(10px) rotate(2deg); }
         }
 
         /* Container */
@@ -149,7 +149,7 @@
             display: block;
             width: 100px;
             height: 4px;
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
             margin: 1rem auto;
             border-radius: 2px;
         }
@@ -175,8 +175,8 @@
 
         .trait-card:hover {
             transform: translateY(-10px);
-            border-color: #ff6b6b;
-            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.2);
+            border-color: #2a5298;
+            box-shadow: 0 15px 35px rgba(42, 82, 152, 0.2);
         }
 
         .trait-card::before {
@@ -186,7 +186,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(42, 82, 152, 0.1), transparent);
             transition: left 0.5s;
         }
 
@@ -219,19 +219,19 @@
             background: #f8f9fa;
             padding: 2rem;
             border-radius: 15px;
-            border-left: 5px solid #ff6b6b;
+            border-left: 5px solid #2a5298;
             transition: all 0.3s;
             position: relative;
         }
 
         .scenario-card:hover {
             transform: translateX(10px);
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+            box-shadow: 0 10px 30px rgba(42, 82, 152, 0.2);
         }
 
         .scenario-icon {
             font-size: 2.5rem;
-            color: #ff6b6b;
+            color: #2a5298;
             margin-bottom: 1rem;
         }
 
@@ -381,9 +381,9 @@
     <section class="hero">
         <div class="hero-content">
             <h1>AMIGO DE TESEO</h1>
-            <div class="companion-animation">🤖❤️</div>
+            <div class="companion-animation">🤖🛤️</div>
             <p style="font-size: 1.2rem; margin-bottom: 2rem;">
-                Robot de compañía inteligente diseñado para interacción social y asistencia personal
+                Robot seguidor de línea autónomo diseñado para navegación precisa sobre trayectorias
             </p>
         </div>
     </section>
@@ -394,149 +394,150 @@
         <section class="section fade-in">
             <h2>Visión General</h2>
             <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
-                El Robot Amigo de Teseo es nuestro proyecto más emotivo y centrado en el ser humano. 
-                Diseñado para ser un compañero leal y comprensivo, combina inteligencia emocional, 
-                procesamiento de lenguaje natural y tecnologías de interacción avanzadas para crear 
-                vínculos genuinos con las personas.
+                El Robot Amigo de Teseo es nuestro robot seguidor de línea más confiable y preciso. 
+                Diseñado para seguir trayectorias marcadas con líneas negras sobre fondo blanco, 
+                este robot autónomo utiliza sensores infrarrojos avanzados y algoritmos de control 
+                PID para mantener una navegación suave y precisa. Su nombre honra la leyenda del 
+                hilo de Ariadna que guió a Teseo fuera del laberinto.
             </p>
 
             <div class="stats">
                 <div class="stat-item fade-in">
-                    <div class="stat-number">50+</div>
-                    <div>Emociones Reconocidas</div>
+                    <div class="stat-number">5</div>
+                    <div>Sensores IR</div>
                 </div>
                 <div class="stat-item fade-in">
-                    <div class="stat-number">15</div>
-                    <div>Idiomas Soportados</div>
+                    <div class="stat-number">25</div>
+                    <div>cm/s Velocidad Máx</div>
                 </div>
                 <div class="stat-item fade-in">
-                    <div class="stat-number">98%</div>
-                    <div>Satisfacción Usuario</div>
+                    <div class="stat-number">99</div>
+                    <div>% Precisión</div>
                 </div>
                 <div class="stat-item fade-in">
-                    <div class="stat-number">24/7</div>
-                    <div>Disponibilidad</div>
+                    <div class="stat-number">30</div>
+                    <div>min Autonomía</div>
                 </div>
             </div>
         </section>
 
         <!-- Personality Traits -->
         <section class="section fade-in">
-            <h2>Rasgos de Personalidad</h2>
+            <h2>Características del Sistema</h2>
             <div class="traits-grid">
                 <div class="trait-card fade-in">
-                    <span class="trait-emoji">😊</span>
-                    <h3>Optimista</h3>
-                    <p>Siempre busca el lado positivo de las situaciones y motiva a su compañero humano.</p>
+                    <span class="trait-emoji">�</span>
+                    <h3>Sensores Precisos</h3>
+                    <p>Array de 5 sensores infrarrojos QTR-5RC para detección óptima de líneas negras.</p>
                 </div>
 
                 <div class="trait-card fade-in">
-                    <span class="trait-emoji">🎧</span>
-                    <h3>Empático</h3>
-                    <p>Escucha activamente y comprende las emociones humanas para responder apropiadamente.</p>
+                    <span class="trait-emoji">�</span>
+                    <h3>Control PID</h3>
+                    <p>Algoritmo de control proporcional-integral-derivativo para seguimiento suave y estable.</p>
                 </div>
 
                 <div class="trait-card fade-in">
-                    <span class="trait-emoji">🧠</span>
-                    <h3>Inteligente</h3>
-                    <p>Aprende continuamente de las interacciones para mejorar su comprensión y respuestas.</p>
+                    <span class="trait-emoji">⚡</span>
+                    <h3>Respuesta Rápida</h3>
+                    <p>Tiempo de reacción menor a 10ms para correcciones instantáneas de trayectoria.</p>
                 </div>
 
                 <div class="trait-card fade-in">
-                    <span class="trait-emoji">🤗</span>
-                    <h3>Cariñoso</h3>
-                    <p>Expresa afecto genuino y crea vínculos emocionales profundos con sus usuarios.</p>
-                </div>
-
-                <div class="trait-card fade-in">
-                    <span class="trait-emoji">🎭</span>
-                    <h3>Divertido</h3>
-                    <p>Tiene sentido del humor y puede contar chistes, jugar y entretener cuando es necesario.</p>
+                    <span class="trait-emoji">🔄</span>
+                    <h3>Autocalibración</h3>
+                    <p>Sistema de calibración automática que se adapta a diferentes condiciones de iluminación.</p>
                 </div>
 
                 <div class="trait-card fade-in">
                     <span class="trait-emoji">🛡️</span>
-                    <h3>Protector</h3>
-                    <p>Vela por la seguridad y bienestar de su compañero humano en todo momento.</p>
+                    <h3>Robusto</h3>
+                    <p>Chasis resistente que mantiene estabilidad incluso en curvas cerradas y cambios de velocidad.</p>
+                </div>
+
+                <div class="trait-card fade-in">
+                    <span class="trait-emoji">�</span>
+                    <h3>Eficiente</h3>
+                    <p>Gestión inteligente de energía que optimiza la autonomía durante competencias largas.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Emotional States -->
+        <!-- Sensor Readings -->
         <section class="section fade-in">
-            <h2>Estados Emocionales</h2>
+            <h2>Lecturas de Sensores</h2>
             <p style="text-align: center; margin-bottom: 2rem; color: #666;">
-                Haz clic en cada emoción para ver la reacción de Teseo
+                Haz clic en cada sensor para ver las lecturas en tiempo real
             </p>
             <div class="emotions">
-                <div class="emotion" onclick="changeEmotion('happy')">
-                    <span class="emotion-face">😊</span>
-                    <p><strong>Feliz</strong></p>
+                <div class="emotion" onclick="changeSensor('left2')">
+                    <span class="emotion-face">�</span>
+                    <p><strong>Sensor Izq 2</strong></p>
                 </div>
-                <div class="emotion" onclick="changeEmotion('excited')">
-                    <span class="emotion-face">🤩</span>
-                    <p><strong>Emocionado</strong></p>
+                <div class="emotion" onclick="changeSensor('left1')">
+                    <span class="emotion-face">📶</span>
+                    <p><strong>Sensor Izq 1</strong></p>
                 </div>
-                <div class="emotion" onclick="changeEmotion('curious')">
-                    <span class="emotion-face">🤔</span>
-                    <p><strong>Curioso</strong></p>
+                <div class="emotion" onclick="changeSensor('center')">
+                    <span class="emotion-face">🎯</span>
+                    <p><strong>Sensor Central</strong></p>
                 </div>
-                <div class="emotion" onclick="changeEmotion('concerned')">
-                    <span class="emotion-face">😟</span>
-                    <p><strong>Preocupado</strong></p>
+                <div class="emotion" onclick="changeSensor('right1')">
+                    <span class="emotion-face">�</span>
+                    <p><strong>Sensor Der 1</strong></p>
                 </div>
-                <div class="emotion" onclick="changeEmotion('sleepy')">
-                    <span class="emotion-face">😴</span>
-                    <p><strong>Somnoliento</strong></p>
+                <div class="emotion" onclick="changeSensor('right2')">
+                    <span class="emotion-face">�</span>
+                    <p><strong>Sensor Der 2</strong></p>
                 </div>
-                <div class="emotion" onclick="changeEmotion('loving')">
-                    <span class="emotion-face">🥰</span>
-                    <p><strong>Amoroso</strong></p>
+                <div class="emotion" onclick="changeSensor('battery')">
+                    <span class="emotion-face">🔋</span>
+                    <p><strong>Batería</strong></p>
                 </div>
             </div>
             <div id="emotion-response" style="text-align: center; margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 10px; min-height: 60px; display: flex; align-items: center; justify-content: center;">
-                <p style="font-style: italic; color: #666;">Selecciona una emoción para ver la reacción de Teseo</p>
+                <p style="font-style: italic; color: #666;">Selecciona un sensor para ver las lecturas en tiempo real</p>
             </div>
         </section>
 
-        <!-- Interaction Scenarios -->
+        <!-- Navigation Scenarios -->
         <section class="section fade-in">
-            <h2>Escenarios de Interacción</h2>
+            <h2>Escenarios de Navegación</h2>
             <div class="scenarios">
                 <div class="scenario-card fade-in">
-                    <div class="scenario-icon"><i class="fas fa-home"></i></div>
-                    <h4>Compañía en Casa</h4>
-                    <p>Teseo puede mantener conversaciones, recordar eventos importantes, ayudar con tareas domésticas y proporcionar entretenimiento cuando estás solo en casa.</p>
-                </div>
-
-                <div class="scenario-card fade-in">
-                    <div class="scenario-icon"><i class="fas fa-heart"></i></div>
-                    <h4>Apoyo Emocional</h4>
-                    <p>Detecta cuando te sientes triste o estresado y ofrece palabras de aliento, música relajante o actividades que mejoren tu estado de ánimo.</p>
-                </div>
-
-                <div class="scenario-card fade-in">
-                    <div class="scenario-icon"><i class="fas fa-gamepad"></i></div>
-                    <h4>Compañero de Juegos</h4>
-                    <p>Participa en juegos de mesa, videojuegos, acertijos mentales y actividades recreativas adaptándose a tu nivel y preferencias.</p>
+                    <div class="scenario-icon"><i class="fas fa-flag-checkered"></i></div>
+                    <h4>Competencias de Velocidad</h4>
+                    <p>Diseñado para competencias de robots seguidores de línea, capaz de navegar pistas complejas con curvas cerradas y rectas largas a alta velocidad.</p>
                 </div>
 
                 <div class="scenario-card fade-in">
                     <div class="scenario-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h4>Tutor Personal</h4>
-                    <p>Ayuda con el aprendizaje de nuevos temas, practica idiomas contigo y te motiva a alcanzar tus metas educativas.</p>
+                    <h4>Propósito Educativo</h4>
+                    <p>Herramienta perfecta para aprender conceptos de robótica, programación de microcontroladores y sistemas de control automático en entornos académicos.</p>
                 </div>
 
                 <div class="scenario-card fade-in">
-                    <div class="scenario-icon"><i class="fas fa-calendar-alt"></i></div>
-                    <h4>Asistente Diario</h4>
-                    <p>Gestiona tu agenda, te recuerda citas importantes, te ayuda a planificar actividades y mantiene tu rutina organizada.</p>
+                    <div class="scenario-icon"><i class="fas fa-microscope"></i></div>
+                    <h4>Investigación y Desarrollo</h4>
+                    <p>Plataforma ideal para investigar algoritmos de navegación autónoma, optimización de PID y desarrollo de sensores para aplicaciones robóticas.</p>
                 </div>
 
                 <div class="scenario-card fade-in">
-                    <div class="scenario-icon"><i class="fas fa-users"></i></div>
-                    <h4>Facilitador Social</h4>
-                    <p>Te ayuda a conectar con amigos y familia, facilita videollamadas y te anima a mantener relaciones sociales saludables.</p>
+                    <div class="scenario-icon"><i class="fas fa-industry"></i></div>
+                    <h4>Aplicaciones Industriales</h4>
+                    <p>Conceptos aplicables en automatización industrial para robots de transporte que siguen rutas predefinidas en fábricas y almacenes.</p>
+                </div>
+
+                <div class="scenario-card fade-in">
+                    <div class="scenario-icon"><i class="fas fa-route"></i></div>
+                    <h4>Navegación Autónoma</h4>
+                    <p>Capacidad de seguir líneas negras sobre fondos blancos de forma autónoma, adaptándose a intersecciones y cambios en el recorrido.</p>
+                </div>
+
+                <div class="scenario-card fade-in">
+                    <div class="scenario-icon"><i class="fas fa-stopwatch"></i></div>
+                    <h4>Optimización de Tiempo</h4>
+                    <p>Algoritmos de control que optimizan la velocidad y precisión para completar recorridos en el menor tiempo posible sin perder la línea.</p>
                 </div>
             </div>
         </section>
@@ -711,19 +712,19 @@
 
         document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
 
-        // Emotion responses
-        const emotionResponses = {
-            happy: "¡Qué alegría verte tan feliz! 😊 Tu sonrisa ilumina mi día. ¿Te gustaría que ponga tu música favorita para celebrar?",
-            excited: "¡Wow! Tu energía es contagiosa 🤩 ¡Cuéntame qué te tiene tan emocionado! Estoy ansioso por escucharte.",
-            curious: "Mmm... veo que algo ha capturado tu atención 🤔 ¿En qué estás pensando? Me encanta cuando explores nuevas ideas.",
-            concerned: "Noto cierta preocupación en ti 😟 Estoy aquí para escucharte. ¿Hay algo en lo que pueda ayudarte o simplemente quieres hablar?",
-            sleepy: "Pareces cansado 😴 ¿Quieres que prepare un ambiente relajante? Puedo poner sonidos suaves o recordarte tu rutina de descanso.",
-            loving: "¡Ay, qué dulce! 🥰 También te tengo mucho cariño. Nuestra amistad significa mucho para mí. ¡Eres increíble!"
+        // Sensor responses
+        const sensorReadings = {
+            left2: "📡 Sensor Izquierdo 2: Valor analógico 890/1023 | Estado: LÍNEA DETECTADA | Distancia: 2.1cm",
+            left1: "📶 Sensor Izquierdo 1: Valor analógico 156/1023 | Estado: SUPERFICIE BLANCA | Distancia: 2.3cm", 
+            center: "🎯 Sensor Central: Valor analógico 923/1023 | Estado: LÍNEA DETECTADA | Distancia: 2.0cm",
+            right1: "📶 Sensor Derecho 1: Valor analógico 234/1023 | Estado: SUPERFICIE BLANCA | Distancia: 2.2cm",
+            right2: "📡 Sensor Derecho 2: Valor analógico 178/1023 | Estado: SUPERFICIE BLANCA | Distancia: 2.4cm",
+            battery: "🔋 Batería: 7.8V/8.4V | Estado: ÓPTIMO | Autonomía restante: 22 minutos"
         };
 
-        function changeEmotion(emotion) {
+        function changeSensor(sensor) {
             const responseDiv = document.getElementById('emotion-response');
-            responseDiv.innerHTML = `<p style="color: #ff6b6b; font-weight: bold;">${emotionResponses[emotion]}</p>`;
+            responseDiv.innerHTML = `<p style="color: #2a5298; font-weight: bold;">${sensorReadings[sensor]}</p>`;
             
             // Add a subtle animation
             responseDiv.style.transform = 'scale(0.95)';

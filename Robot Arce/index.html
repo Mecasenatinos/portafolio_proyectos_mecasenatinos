@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Arce - Asistente Robótico de Comida y Entrega | Mecasenatinos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #2196f3;
+            text-shadow: 0 0 10px #2196f3;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #2196f3, #42a5f5);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff10" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23ffffff05" points="0,300 1000,600 1000,1000 0,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #4caf50, 0 0 30px #4caf50; }
+            to { text-shadow: 0 0 30px #4caf50, 0 0 40px #4caf50; }
+        }
+
+        .nature-animation {
+            font-size: 8rem;
+            margin: 2rem 0;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-3deg) translateY(0px); }
+            25% { transform: rotate(3deg) translateY(-5px); }
+            50% { transform: rotate(-3deg) translateY(0px); }
+            75% { transform: rotate(3deg) translateY(-5px); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #4caf50, #66bb6a);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f1f8e9 0%, #c8e6c9 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #4caf50;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Sensors Grid */
+        .sensors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .sensor-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid #4caf50;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .sensor-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.2);
+        }
+
+        .sensor-icon {
+            font-size: 2.5rem;
+            color: #4caf50;
+            margin-bottom: 1rem;
+        }
+
+        /* Environmental Data */
+        .env-data {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .data-card {
+            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .data-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .data-number {
+            font-size: 3rem;
+            font-weight: bold;
+            font-family: 'Orbitron', monospace;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background: linear-gradient(to bottom, #4caf50, #66bb6a);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background: #4caf50;
+            border: 4px solid #ffffff;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -16px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .nature-animation {
+                font-size: 6rem;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item::after {
+                left: 31px;
+            }
+            .timeline-item:nth-child(even) {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">ROBOT ARCE</div>
+            <a href="../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver al Portafolio
+            </a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ROBOT ARCE</h1>
+            <div class="nature-animation">�️🤖</div>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                Asistente Robótico de Comida y Entrega - Automatización para servicios hospitalarios
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Overview Section -->
+        <section class="section fade-in">
+            <h2>Visión General</h2>
+            <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                El Robot Arce (Asistente Robótico de Comida y Entrega) es un sistema automatizado diseñado 
+                para transportar comida desde las áreas de servicio hasta las camas de los pacientes 
+                hospitalizados. Después de entregar la comida, el robot recoge automáticamente las bandejas 
+                vacías, optimizando el servicio hospitalario y reduciendo la carga de trabajo del personal.
+            </p>
+
+            <div class="env-data">
+                <div class="data-card fade-in">
+                    <div class="data-number">50</div>
+                    <div>Entregas por Día</div>
+                </div>
+                <div class="data-card fade-in">
+                    <div class="data-number">24/7</div>
+                    <div>Servicio Continuo</div>
+                </div>
+                <div class="data-card fade-in">
+                    <div class="data-number">5</div>
+                    <div>Pisos de Cobertura</div>
+                </div>
+                <div class="data-card fade-in">
+                    <div class="data-number">98</div>
+                    <div>% Precisión Entrega</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Food Service System -->
+        <section class="section fade-in">
+            <h2>Sistema de Servicio de Comida</h2>
+            <div class="sensors-grid">
+                <div class="sensor-card fade-in">
+                    <div class="sensor-icon"><i class="fas fa-utensils"></i></div>
+                    <h4>Compartimento Térmico</h4>
+                    <p>Espacio aislado térmicamente para mantener la temperatura de los alimentos durante el transporte.</p>
+                </div>
+
+                <div class="sensor-card fade-in">
+                    <div class="sensor-icon"><i class="fas fa-route"></i></div>
+                    <h4>Navegación Hospitalaria</h4>
+                    <p>Sistema de navegación que conoce todos los pasillos y habitaciones del hospital.</p>
+                </div>
+
+                <div class="sensor-card fade-in">
+                    <div class="sensor-icon"><i class="fas fa-qrcode"></i></div>
+                    <h4>Identificación de Pacientes</h4>
+                    <p>Escáner de códigos QR y RFID para verificar la identidad del paciente antes de la entrega.</p>
+                </div>
+
+                <div class="sensor-card fade-in">
+                    <div class="sensor-icon"><i class="fas fa-trash"></i></div>
+                    <h4>Recolección Automática</h4>
+                    <p>Sistema para recoger bandejas vacías después del tiempo de comida programado.</p>
+                </div>
+
+                <div class="sensor-card fade-in">
+                    <div class="sensor-icon"><i class="fas fa-clock"></i></div>
+                    <h4>Programación de Horarios</h4>
+                    <p>Coordina entregas según los horarios de comida y necesidades específicas de cada paciente.</p>
+                </div>
+
+                <div class="sensor-card fade-in">
+                    <div class="sensor-icon"><i class="fas fa-hospital"></i></div>
+                    <h4>Integración Hospitalaria</h4>
+                    <p>Conectado con el sistema del hospital para recibir órdenes de comida y actualizaciones.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section fade-in">
+            <h2>Características Principales</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-route"></i></div>
+                    <h3>Navegación Autónoma</h3>
+                    <p>Sistema GPS y LIDAR para mapeo automático de áreas de cultivo y navegación precisa.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <h3>Transmisión IoT</h3>
+                    <p>Conectividad WiFi y LoRa para envío en tiempo real de datos a plataformas cloud.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-solar-panel"></i></div>
+                    <h3>Energía Solar</h3>
+                    <p>Panel solar integrado con baterías LiPo para operación sostenible y autónoma.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Resistente al Clima</h3>
+                    <p>Carcasa IP65 que protege componentes electrónicos de lluvia, polvo y humedad.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Análisis Predictivo</h3>
+                    <p>Algoritmos de machine learning para predecir patrones climáticos y alertas tempranas.</p>
+                </div>
+
+                <div class="feature-card fade-in">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>App Móvil</h3>
+                    <p>Aplicación Android/iOS para monitoreo remoto y configuración de parámetros.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monitoring Timeline -->
+        <section class="section fade-in">
+            <h2>Ciclo de Monitoreo</h2>
+            <div class="timeline">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h4 style="color: #2e7d32;">Recorrido Matutino</h4>
+                        <p>6:00 AM - Inicio de ronda de sensores, medición de humedad nocturna y temperatura mínima.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h4 style="color: #2e7d32;">Análisis Medio Día</h4>
+                        <p>12:00 PM - Medición de radiación UV máxima, estrés hídrico de plantas y calidad del aire.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h4 style="color: #2e7d32;">Evaluación Vespertina</h4>
+                    <p>6:00 PM - Análisis fotográfico de crecimiento, detección de plagas y estado general del cultivo.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in">
+                    <div class="timeline-content">
+                        <h4 style="color: #2e7d32;">Reporte Nocturno</h4>
+                        <p>10:00 PM - Compilación de datos del día, envío de reportes y carga solar de baterías.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specifications -->
+        <section class="section fade-in">
+            <h2>Especificaciones Técnicas</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 1rem;">
+                        <i class="fas fa-ruler-combined"></i> Dimensiones Físicas
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Altura: 80 cm</li>
+                        <li>Diámetro base: 40 cm</li>
+                        <li>Peso: 15 kg</li>
+                        <li>Material: Aluminio anodizado</li>
+                        <li>Ruedas: Todo terreno 20cm</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 1rem;">
+                        <i class="fas fa-microchip"></i> Sistema de Control
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>MCU: Raspberry Pi 4B</li>
+                        <li>Co-procesador: Arduino Mega</li>
+                        <li>RAM: 8 GB LPDDR4</li>
+                        <li>Almacenamiento: 128 GB SD</li>
+                        <li>Conectividad: WiFi, LoRa, 4G</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 10px;">
+                    <h4 style="color: #2e7d32; margin-bottom: 1rem;">
+                        <i class="fas fa-battery-full"></i> Sistema de Energía
+                    </h4>
+                    <ul style="line-height: 2;">
+                        <li>Panel solar: 50W monocristalino</li>
+                        <li>Batería: LiPo 18V 5000mAh</li>
+                        <li>Autonomía: 3 días sin sol</li>
+                        <li>Consumo: 15W promedio</li>
+                        <li>Tiempo de carga: 6 horas</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Applications -->
+        <section class="section fade-in">
+            <h2>Aplicaciones</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #28a745;">
+                    <h4 style="color: #28a745; margin-bottom: 1rem;">
+                        <i class="fas fa-seedling"></i> Agricultura de Precisión
+                    </h4>
+                    <p>Optimización de riego, fertilización y control de plagas basado en datos en tiempo real.</p>
+                </div>
+
+                <div style="background: #e8f4fd; padding: 2rem; border-radius: 15px; border-left: 5px solid #007bff;">
+                    <h4 style="color: #007bff; margin-bottom: 1rem;">
+                        <i class="fas fa-leaf"></i> Investigación Ambiental</h4>
+                    <p>Estudios de cambio climático, biodiversidad y impacto de actividades humanas en ecosistemas.</p>
+                </div>
+
+                <div style="background: #fff8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #ffc107;">
+                    <h4 style="color: #ffc107; margin-bottom: 1rem;">
+                        <i class="fas fa-exclamation-triangle"></i> Alerta Temprana
+                    </h4>
+                    <p>Detección precoz de sequías, heladas, plagas y enfermedades que afecten los cultivos.</p>
+                </div>
+
+                <div style="background: #fde8e8; padding: 2rem; border-radius: 15px; border-left: 5px solid #dc3545;">
+                    <h4 style="color: #dc3545; margin-bottom: 1rem;">
+                        <i class="fas fa-industry"></i> Monitoreo Industrial
+                    </h4>
+                    <p>Vigilancia de emisiones contaminantes y cumplimiento de normativas ambientales en fábricas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack -->
+        <section class="section fade-in">
+            <h2>Stack Tecnológico</h2>
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin: 2rem 0;">
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Raspberry Pi OS</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Python</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Arduino IDE</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">OpenCV</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">InfluxDB</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">Grafana</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">MQTT</div>
+                <div style="background: #f8f9fa; padding: 1rem 2rem; border-radius: 25px; border: 2px solid #e9ecef; transition: all 0.3s;">React Native</div>
+            </div>
+        </section>
+
+        <!-- Environmental Impact -->
+        <section class="section fade-in">
+            <h2>Impacto Ambiental</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0;">
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 3rem; color: #4caf50; margin-bottom: 1rem;">💧</div>
+                    <h4 style="color: #2e7d32;">Ahorro de Agua</h4>
+                    <p>Hasta 30% de reducción en consumo de agua mediante riego inteligente.</p>
+                </div>
+
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 3rem; color: #4caf50; margin-bottom: 1rem;">🌱</div>
+                    <h4 style="color: #2e7d32;">Mejor Rendimiento</h4>
+                    <p>Incremento del 25% en productividad de cultivos monitoreados.</p>
+                </div>
+
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 3rem; color: #4caf50; margin-bottom: 1rem;">🔬</div>
+                    <h4 style="color: #2e7d32;">Reducción Químicos</h4>
+                    <p>40% menos pesticidas mediante detección temprana de plagas.</p>
+                </div>
+
+                <div style="background: #e8f5e8; padding: 2rem; border-radius: 15px; text-align: center;">
+                    <div style="font-size: 3rem; color: #4caf50; margin-bottom: 1rem;">📊</div>
+                    <h4 style="color: #2e7d32;">Datos Precisos</h4>
+                    <p>Base de datos ambientales para investigación científica.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section fade-in">
+            <h2>Más Información</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                    ¿Interesado en implementar el Robot Arce en tu proyecto ambiental?
+                </p>
+                <a href="../index.html#contacto" style="display: inline-block; background: linear-gradient(45deg, #4caf50, #66bb6a); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 50px; font-weight: bold;">
+                    Contactar Equipo
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: #333; color: white; text-align: center; padding: 2rem 0; margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2025 Mecasenatinos - Robot Arce. ¡Cuidando el planeta con tecnología!</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        });
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.data-number');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.textContent.replace(/[^\d.-]/g, ''));
+                const increment = target / 100;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    const originalText = counter.textContent;
+                    if (originalText.includes('/')) {
+                        counter.textContent = originalText.replace(/\d+/, Math.ceil(current));
+                    } else if (originalText.includes('%')) {
+                        counter.textContent = Math.ceil(current) + '%';
+                    } else {
+                        counter.textContent = Math.ceil(current);
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when env-data section is visible
+        const envDataSection = document.querySelector('.env-data');
+        if (envDataSection) {
+            const envDataObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        envDataObserver.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            envDataObserver.observe(envDataSection);
+        }
+
+        // Environmental sound effect simulation
+        function playNatureSound() {
+            console.log('🌿 Datos ambientales actualizados! 📊');
+        }
+
+        // Add click event to the nature animation
+        document.querySelector('.nature-animation').addEventListener('click', playNatureSound);
+
+        // Interactive sensor cards
+        document.querySelectorAll('.sensor-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.sensor-icon i');
+                icon.style.transform = 'scale(1.2) rotate(10deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.sensor-icon i');
+                icon.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Add floating animation to feature cards
+        document.querySelectorAll('.feature-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.2}s`;
+            
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+        });
+    </script>
+</body>
+</html>
